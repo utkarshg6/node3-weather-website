@@ -68,7 +68,16 @@ app.get("/weather", (req, res) => {
       forecast(
         latitude,
         longitude,
-        (error, { summary, temperature, precipProbability } = {}) => {
+        (
+          error,
+          {
+            summary,
+            temperature,
+            precipProbability,
+            temperatureHigh,
+            temperatureLow,
+          } = {}
+        ) => {
           if (error) {
             message["error"] = error;
             return res.send(message);
@@ -81,6 +90,13 @@ app.get("/weather", (req, res) => {
             "°C and a " +
             precipProbability +
             "% chance of rain.";
+
+          message["highLowSummary"] =
+            "The Highest Temperature is " +
+            temperatureHigh +
+            "°C and Lowest Temperature is " +
+            temperatureLow +
+            "°C.";
           return res.send(message);
         }
       );

@@ -15,10 +15,13 @@ const forecast = (latitude, longitude, callback) => {
       callback(body.error, undefined);
     } else {
       const currently = body.currently;
+      const daily = body.daily.data[0];
       callback(undefined, {
         summary: body.daily.data[0].summary,
         temperature: currently.temperature,
         precipProbability: currently.precipProbability,
+        temperatureHigh: daily.temperatureHigh,
+        temperatureLow: daily.temperatureLow,
       });
     }
   });
